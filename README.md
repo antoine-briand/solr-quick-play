@@ -27,7 +27,7 @@ Replace {YOUR.SERVER.IP.ADRESS} with the ip of your fresh Ubuntu 16.04 server
 ## Deploy SOLR using Vagrant
 If you want to deploy Solr in a local virtual machine, you can use vagrant.
 It's easy to install and use.
-Follow the instructions to get started : (Vagrant Download)[https://www.vagrantup.com/downloads.html]
+Follow the instructions to get started : [Vagrant Download](https://www.vagrantup.com/downloads.html)
 Once Vagrant is installed, clone this repository and run :
 
 ```sh
