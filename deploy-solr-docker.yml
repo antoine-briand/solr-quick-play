@@ -1,5 +1,6 @@
 - hosts: all
   remote_user: root
+  become: yes
   gather_facts: False
 
   tasks:
@@ -36,4 +37,4 @@
   - name: Make docker-compose binary executable
     raw: chmod +x /usr/local/bin/docker-compose
   - name: Run a the Solr container
-    raw : cd solr-quick-play && docker-compose up -d
+    raw : cd ~/solr-quick-play && docker-compose up -d
