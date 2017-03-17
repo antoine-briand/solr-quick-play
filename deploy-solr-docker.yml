@@ -27,8 +27,13 @@
   - name: Install docker-py
     pip:
       name: docker-py
-  - name: Pull solr 6.4.2 alpine image
-    docker_image:
-      name: solr:6.4.2-alpine
-  - name: Run a solr container
-    raw : docker run -d -p 8983:8983 solr:6.4.2-alpine solr-create -c mycore
+  - name: Clone the solr-quick-play repository from GitHub
+    git:
+      repo: https://github.com/antoine-briand/solr-quick-play.git
+      dest: ~/solr-quick-play
+  - name: Install docker-compose
+    raw: curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - name: Make docker-compose binary executable
+    raw: chmod +x /usr/local/bin/docker-compose
+  - name: Run a the Solr container
+    raw : cd solr-quick-play && docker-compose up -d
