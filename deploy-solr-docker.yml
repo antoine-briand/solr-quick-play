@@ -1,0 +1,34 @@
+- hosts: all
+  remote_user: root
+  gather_facts: False
+
+  tasks:
+  - name: Installing Python 2 (required by ansible)
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+  - name: Add docker apt key repository
+    apt_key:
+      keyserver: p80.pool.sks-keyservers.net
+      id: 58118E89F3A912897C070ADBF76221572C52609D
+      state: present
+  - name: Add docker apt repository
+    apt_repository:
+      repo: deb https://apt.dockerproject.org/repo ubuntu-xenial main
+      state: present
+  - name: Installing Docker
+    apt:
+      name: docker-engine
+      update_cache: yes
+      state: present
+  - name: Installing Python pip
+    apt:
+      name: python-pip
+      update_cache: yes
+      state: present
+  - name: Install docker-py
+    pip:
+      name: docker-py
+  - name: Pull solr 6.4.2 alpine image
+    docker_image:
+      name: solr:6.4.2-alpine
+  - name: Run a solr container
+    raw : docker run -d -p 8983:8983 solr:6.4.2-alpine solr-create -c mycore
