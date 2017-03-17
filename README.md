@@ -17,7 +17,11 @@ Then browse http://localhost:8983 (replace localhost by a domain name or the IP 
 You'll find a deadly simple ansible playbook that install docker, pull the solr image, and run it.
 You should have ansible installed. If not follow the guidelines : [Install Ansible](http://docs.ansible.com/ansible/intro_installation.html)
 
-Replace {YOUR.SERVER.IP.ADRESS} with the ip of your fresh Ubuntu 16.04 server :
+
 
 Once it's installed clone this repository and run :
+```sh
 ansible-playbook -i {YOUR.SERVER.IP.ADRESS}, deploy-solr-docker.yml
+```
+
+Replace {YOUR.SERVER.IP.ADRESS} with the ip of your fresh Ubuntu 16.04 server
