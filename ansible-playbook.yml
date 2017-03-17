@@ -28,13 +28,22 @@
   - name: Install docker-py
     pip:
       name: docker-py
+      state: present
   - name: Clone the solr-quick-play repository from GitHub
     git:
       repo: https://github.com/antoine-briand/solr-quick-play.git
       dest: ~/solr-quick-play
+      state: present
   - name: Install docker-compose
-    raw: curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    get_url:
+      url: https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)
+      dest: /usr/local/bin/docker-compose
+      state: present
   - name: Make docker-compose binary executable
-    raw: chmod +x /usr/local/bin/docker-compose
+    file:
+      path: /usr/local/bin/docker-compose
+      mode: +x
   - name: Run a the Solr container
-    raw : cd ~/solr-quick-play && docker-compose up -d
+    command: docker-compose up -d
+      args:
+        chdir: ~/solr-quick-play
