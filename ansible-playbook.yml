@@ -33,17 +33,13 @@
     git:
       repo: https://github.com/antoine-briand/solr-quick-play.git
       dest: ~/solr-quick-play
-      state: present
   - name: Install docker-compose
-    get_url:
-      url: https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)
-      dest: /usr/local/bin/docker-compose
-      state: present
+    shell: curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
   - name: Make docker-compose binary executable
     file:
       path: /usr/local/bin/docker-compose
-      mode: +x
+      mode: u+x
   - name: Run a the Solr container
     command: docker-compose up -d
-      args:
-        chdir: ~/solr-quick-play
+    args:
+      chdir: ~/solr-quick-play
